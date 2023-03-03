@@ -33,7 +33,6 @@ export default function Home() {
             if (response.status !== 200) {
                 throw data.error || new Error(`Request failed with status ${response.status}`);
             }
-
             setResult(data.result);
             setAnimalInput('');
             setLoading(false);
