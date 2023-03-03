@@ -5,7 +5,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-export default async function(req, res) {
+export default async function (req: any, res: any) {
     if (!configuration.apiKey) {
         res.status(500).json({
             error: {
@@ -35,7 +35,7 @@ export default async function(req, res) {
             size,
         });
         res.status(200).json({ result: completion.data.data });
-    } catch (error) {
+    } catch (error: any) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
             console.error(error.response.status, error.response.data);

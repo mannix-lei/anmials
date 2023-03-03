@@ -5,7 +5,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-export default async function(req, res) {
+export default async function(req: any, res: any) {
     if (!configuration.apiKey) {
         res.status(500).json({
             error: {
@@ -32,7 +32,7 @@ export default async function(req, res) {
             temperature: 0.6,
         });
         res.status(200).json({ result: completion.data.choices[0].text });
-    } catch (error) {
+    } catch (error: any) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
             console.error(error.response.status, error.response.data);
@@ -48,7 +48,7 @@ export default async function(req, res) {
     }
 }
 
-function generatePrompt(animal) {
+function generatePrompt(animal: string) {
     const capitalizedAnimal = animal[0].toUpperCase() + animal.slice(1).toLowerCase();
     return `Suggest three names for an animal that is a superhero.
 

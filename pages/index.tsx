@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import styles from './index.module.css';
 
 export default function Home() {
     const [animalInput, setAnimalInput] = useState('');
     const [result, setResult] = useState();
     const [imageName, setImageName] = useState('');
-    const [imageCount, setImageCount] = useState(1);
-    const [imgList, setImgList] = useState([]);
+    const [imageCount, setImageCount] = useState<number>(1);
+    const [imgList, setImgList] = useState<{ url: string }[]>([]);
     const [loading, setLoading] = useState(false);
     const [errMsg, setErrMsg] = useState('');
 
-    async function onSubmit(event) {
+    async function onSubmit(event: FormEvent) {
         event.preventDefault();
         try {
             if (!animalInput) {
@@ -43,7 +43,7 @@ export default function Home() {
         }
     }
 
-    async function initImg(event) {
+    async function initImg(event: FormEvent) {
         event.preventDefault();
         try {
             if (!imageName) {
@@ -95,7 +95,7 @@ export default function Home() {
                         onChange={(e) => setAnimalInput(e.target.value)}
                     />
                     {errMsg && <p className={styles.errMsg}>{errMsg}</p>}
-                    <input type='submit' value='Generate names' disabled={loading ? 'disabled' : ''} />
+                    <input type='submit' value='Generate names' disabled={loading} />
                 </form>
                 <div className={styles.result}>{result}</div>
             </main>
@@ -117,13 +117,13 @@ export default function Home() {
                         value={imageCount}
                         onChange={(e) => {
                             if (Number(e.target.value) > 20) {
-                                alert('please, it is too much')
+                                alert('please, it is too much');
                             }
-                            setImageCount(e.target.value)
+                            setImageCount(+e.target.value);
                         }}
                     />
                     {errMsg && <p className={styles.errMsg}>{errMsg}</p>}
-                    <input type='submit' value='Generate images' disabled={loading ? 'disabled' : ''} />
+                    <input type='submit' value='Generate images' disabled={loading} />
                 </form>
                 {imgList.length > 0 ? (
                     <div className={styles.imgResult}>
@@ -131,7 +131,9 @@ export default function Home() {
                             <img key={index} src={item.url} />
                         ))}
                     </div>
-                ) : <div>images will be here...</div>}
+                ) : (
+                    <div>images will be here...</div>
+                )}
             </main>
         </div>
     );
