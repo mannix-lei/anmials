@@ -20,6 +20,7 @@ export default function Home() {
                 }, 2000);
                 return;
             }
+
             setLoading(true);
             const response = await fetch('/api/generate', {
                 method: 'POST',
